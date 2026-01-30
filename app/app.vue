@@ -1,11 +1,20 @@
 <template>
   <div class="app-wrapper">
-    <AppHeader :currentStep="currentStep" @start="startFlow" @reset="resetFlow" />
+    <BgElements />
+    <AppHeader :currentStep="currentStep" @start="startFlow" @reset="resetFlow" @show-how="showHowItWorks" />
     
     <main>
       <Transition name="fade" mode="out-in">
-        <HeroSection v-if="currentStep === 'hero'" @start="startFlow" />
+        <div v-if="currentStep === 'hero'">
+          <HeroSection @start="startFlow" />
+          <StatsSection />
+          <StorySection />
+          <TestimonialsSection />
+          <CTASection @start="startFlow" />
+        </div>
         
+        <HowItWorks v-else-if="currentStep === 'how-it-works'" @start="startFlow" @close="resetFlow" />
+
         <div v-else class="container">
           <div class="stepper-progress">
             <div 
@@ -56,7 +65,7 @@
       </Transition>
     </main>
 
-    <footer class="main-footer" v-if="currentStep === 'hero'">
+    <footer class="main-footer" v-if="currentStep === 'hero' || currentStep === 'how-it-works'">
       <div class="container footer-content">
         <p>&copy; 2026 Tizeta-Pages. All rights reserved.</p>
         <div class="footer-links">
@@ -93,6 +102,10 @@ const stepIds = steps.map(s => s.id);
 
 const startFlow = () => {
   currentStep.value = 'upload';
+};
+
+const showHowItWorks = () => {
+  currentStep.value = 'how-it-works';
 };
 
 const resetFlow = () => {

@@ -7,7 +7,7 @@
       </div>
       <nav class="nav">
         <a href="#" @click.prevent="$emit('reset')" class="nav-link">Home</a>
-        <a href="#" class="nav-link">How it works</a>
+        <a href="#" @click.prevent="$emit('show-how')" class="nav-link">How it works</a>
         <button class="btn-primary-sm" v-if="currentStep === 'hero'" @click="$emit('start')">Get Started</button>
       </nav>
     </div>
