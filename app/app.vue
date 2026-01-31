@@ -15,7 +15,7 @@
         
         <HowItWorks v-else-if="currentStep === 'how-it-works'" @start="startFlow" @close="resetFlow" />
 
-        <div v-else class="container">
+        <div v-else :class="['container', { 'editor-container': currentStep === 'arrange' }]">
           <div class="stepper-progress">
             <div 
               v-for="(s, index) in steps" 
@@ -37,15 +37,6 @@
             @next="nextStep" 
           />
           
-          <CoverStep 
-            v-if="currentStep === 'cover'" 
-            :availablePhotos="photos"
-            :initialCover="cover"
-            @update:cover="updateCover"
-            @next="nextStep"
-            @prev="prevStep"
-          />
-
           <ArrangeStep 
             v-if="currentStep === 'arrange'" 
             v-model:photos="photos"
@@ -93,8 +84,7 @@ const cover = ref({
 
 const steps = [
   { id: 'upload', label: 'Upload' },
-  { id: 'cover', label: 'Cover' },
-  { id: 'arrange', label: 'Arrange' },
+  { id: 'arrange', label: 'Design' },
   { id: 'order', label: 'Order' }
 ];
 

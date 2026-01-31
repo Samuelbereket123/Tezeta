@@ -82,6 +82,10 @@ button {
   padding: 0 20px;
 }
 
+.editor-container {
+  max-width: 1400px;
+}
+
 /* Page Transitions */
 .fade-enter-active,
 .fade-leave-active {
