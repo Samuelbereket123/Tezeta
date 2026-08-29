@@ -25,8 +25,12 @@
                 'active': currentStep === s.id, 
                 'completed': isCompleted(s.id) 
               }"
+              @click="isCompleted(s.id) ? (currentStep = s.id) : null"
             >
-              <div class="step-num">{{ index + 1 }}</div>
+              <div class="step-num">
+                <svg v-if="isCompleted(s.id)" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                <span v-else>{{ index + 1 }}</span>
+              </div>
               <div class="step-label">{{ s.label }}</div>
             </div>
           </div>
@@ -162,8 +166,8 @@ main {
   justify-content: center;
   align-items: center;
   gap: 40px;
-  padding: 40px 0;
-  max-width: 600px;
+  padding: 30px 0 20px;
+  max-width: 540px;
   margin: 0 auto;
 }
 
@@ -176,15 +180,20 @@ main {
   flex: 1;
 }
 
+.step-item.completed {
+  cursor: pointer;
+}
+
 .step-item:not(:last-child)::after {
   content: '';
   position: absolute;
-  top: 18px;
-  left: calc(50% + 25px);
-  width: calc(100% - 10px);
+  top: 19px;
+  left: calc(50% + 22px);
+  width: calc(100% - 4px);
   height: 2px;
   background: var(--border-color);
   z-index: 1;
+  transition: background 0.3s ease;
 }
 
 .step-item.completed:not(:last-child)::after {
@@ -192,25 +201,29 @@ main {
 }
 
 .step-num {
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   background: white;
   border: 2px solid var(--border-color);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 600;
+  font-weight: 700;
+  font-size: 0.95rem;
   color: var(--text-muted);
   position: relative;
   z-index: 2;
   transition: var(--transition);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
 
 .step-item.active .step-num {
   border-color: var(--primary);
   color: var(--primary);
   transform: scale(1.1);
+  box-shadow: 0 0 0 4px rgba(127, 176, 105, 0.25);
+  background: white;
 }
 
 .step-item.completed .step-num {
@@ -221,14 +234,14 @@ main {
 
 .step-label {
   font-size: 0.85rem;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--text-muted);
   transition: var(--transition);
 }
 
 .step-item.active .step-label {
   color: var(--text-main);
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .main-footer {
