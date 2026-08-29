@@ -20,6 +20,66 @@
       </button>
     </div>
 
+    <div class="template-selector-section">
+      <h3>Choose a Template Style</h3>
+      <div class="template-cards">
+        <div 
+          class="template-card" 
+          :class="{ active: templateStyle === 'mix' }"
+          @click="selectTemplate('mix')"
+        >
+          <div class="template-preview mix-preview">
+            <div class="page-side"><div class="box full"></div></div>
+            <div class="page-side"><div class="box split"></div><div class="box split"></div></div>
+          </div>
+          <h4>Storybook Mix</h4>
+          <p>A balanced mix of dynamic layouts</p>
+        </div>
+        
+        <div 
+          class="template-card" 
+          :class="{ active: templateStyle === 'single' }"
+          @click="selectTemplate('single')"
+        >
+          <div class="template-preview single-preview">
+            <div class="page-side"><div class="box full"></div></div>
+            <div class="page-side"><div class="box full"></div></div>
+          </div>
+          <h4>Minimalist</h4>
+          <p>Clean, one full photo per page</p>
+        </div>
+        
+        <div 
+          class="template-card" 
+          :class="{ active: templateStyle === 'grid4' }"
+          @click="selectTemplate('grid4')"
+        >
+          <div class="template-preview grid-preview">
+            <div class="page-side grid-2x2">
+              <div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div>
+            </div>
+            <div class="page-side grid-2x2">
+              <div class="box"></div><div class="box"></div><div class="box"></div><div class="box"></div>
+            </div>
+          </div>
+          <h4>Grid Collage</h4>
+          <p>Max photos, 4 on every page</p>
+        </div>
+        
+        <div 
+          class="template-card" 
+          :class="{ active: templateStyle === 'panoramic' }"
+          @click="selectTemplate('panoramic')"
+        >
+          <div class="template-preview pan-preview">
+            <div class="page-full"><div class="box pano"></div></div>
+          </div>
+          <h4>Panoramic</h4>
+          <p>Big bold spreads across two pages</p>
+        </div>
+      </div>
+    </div>
+
     <div 
       class="upload-area" 
       :class="{ 'is-dragging': isDragging, 'has-photos': photos.length > 0 }"
@@ -88,8 +148,18 @@
 <script setup>
 import { ref } from 'vue';
 
-const props = defineProps(['photos']);
-const emit = defineEmits(['update:photos', 'next']);
+const props = defineProps({
+  photos: Array,
+  templateStyle: {
+    type: String,
+    default: 'mix'
+  }
+});
+const emit = defineEmits(['update:photos', 'update:templateStyle', 'next']);
+
+const selectTemplate = (style) => {
+  emit('update:templateStyle', style);
+};
 
 const isDragging = ref(false);
 
@@ -249,6 +319,104 @@ const removePhoto = (index) => {
   background: var(--primary-hover);
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(127, 176, 105, 0.3);
+}
+
+.template-selector-section {
+  margin-bottom: 40px;
+}
+
+.template-selector-section h3 {
+  font-size: 1.25rem;
+  color: var(--text-main);
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.template-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.template-card {
+  background: white;
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.template-card:hover {
+  border-color: rgba(127, 176, 105, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+}
+
+.template-card.active {
+  border-color: var(--primary);
+  background: rgba(127, 176, 105, 0.04);
+  box-shadow: 0 0 0 2px var(--primary);
+}
+
+.template-preview {
+  display: flex;
+  background: #f1f5f9;
+  border-radius: 4px;
+  aspect-ratio: 1.6;
+  margin-bottom: 12px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.page-side, .page-full {
+  flex: 1;
+  padding: 6px;
+  display: flex;
+  gap: 4px;
+  flex-direction: column;
+}
+
+.page-side:first-child {
+  border-right: 1px solid #e2e8f0;
+}
+
+.box {
+  background: #cbd5e1;
+  border-radius: 2px;
+  width: 100%;
+}
+
+.box.full { flex: 1; }
+.box.split { flex: 1; }
+.box.pano { flex: 1; }
+
+.grid-2x2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 4px;
+}
+.grid-2x2 .box { height: 100%; }
+
+.page-full {
+  padding: 6px;
+  display: flex;
+}
+
+.template-card h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 4px;
+}
+
+.template-card p {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  line-height: 1.3;
 }
 
 .upload-area {

@@ -38,13 +38,17 @@
           <UploadStep 
             v-if="currentStep === 'upload'" 
             v-model:photos="photos" 
+            v-model:templateStyle="templateStyle"
             @next="nextStep" 
           />
           
           <ArrangeStep 
             v-if="currentStep === 'arrange'" 
             v-model:photos="photos"
-            :cover="cover"
+            v-model:cover="cover"
+            v-model:backCover="backCover"
+            v-model:bookLayout="bookLayout"
+            v-model:templateStyle="templateStyle"
             @next="nextStep"
             @prev="prevStep"
           />
@@ -53,6 +57,8 @@
             v-if="currentStep === 'order'" 
             :photos="photos"
             :cover="cover"
+            :backCover="backCover"
+            :bookLayout="bookLayout"
             @prev="prevStep"
             @complete="resetFlow"
           />
@@ -85,6 +91,15 @@ const cover = ref({
   color: '#7FB069',
   font: "'Outfit', sans-serif"
 });
+const backCover = ref({
+  type: 'color',
+  color: '#2D3436',
+  photo: null,
+  photo2: null,
+  text: 'Tizeta-Pages • Memory Collection'
+});
+const bookLayout = ref([]);
+const templateStyle = ref('mix');
 
 const steps = [
   { id: 'upload', label: 'Upload' },
@@ -113,6 +128,14 @@ const resetFlow = () => {
     color: '#7FB069',
     font: "'Outfit', sans-serif"
   };
+  backCover.value = {
+    type: 'color',
+    color: '#2D3436',
+    photo: null,
+    photo2: null,
+    text: 'Tizeta-Pages • Memory Collection'
+  };
+  bookLayout.value = [];
 };
 
 const nextStep = () => {

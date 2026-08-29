@@ -36,50 +36,6 @@
           {{ activeSpreadIndex === -1 ? 'Front Cover' : activeSpreadIndex === -2 ? 'Back Cover' : `Pages ${activeSpreadIndex * 2 + 1} – ${activeSpreadIndex * 2 + 2}` }}
         </div>
 
-        <!-- Preset Auto-Templates Toolbar -->
-        <div class="templates-toolbar glass">
-          <div class="toolbar-title">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <span>Auto-Templates</span>
-          </div>
-          <div class="template-chips">
-            <button 
-              class="template-chip" 
-              :class="{ active: selectedTemplate === 'mix' }"
-              @click="applyTemplateStyle('mix')"
-              title="Mix of 1, 2, 3 & 4 photo collages"
-            >
-              ✨ Storybook Mix
-            </button>
-            <button 
-              class="template-chip" 
-              :class="{ active: selectedTemplate === 'single' }"
-              @click="applyTemplateStyle('single')"
-              title="1 Full photo per page"
-            >
-              📷 Single Photo
-            </button>
-            <button 
-              class="template-chip" 
-              :class="{ active: selectedTemplate === 'grid4' }"
-              @click="applyTemplateStyle('grid4')"
-              title="4-photo 2x2 grid collages"
-            >
-              🖼️ 2x2 Grid
-            </button>
-            <button 
-              class="template-chip" 
-              :class="{ active: selectedTemplate === 'panoramic' }"
-              @click="applyTemplateStyle('panoramic')"
-              title="Panoramic spreads mixed with collages"
-            >
-              🌅 Panoramic Spreads
-            </button>
-          </div>
-          <button class="btn-primary btn-autofill" @click="applyTemplateStyle('mix')">
-            ⚡ Autofill All
-          </button>
-        </div>
 
         <div class="actions">
           <button class="btn-secondary btn-sm" @click="$emit('prev')">Back</button>
@@ -95,19 +51,25 @@
             :class="{ 'dragging-over': isOverCover }"
             :style="getCoverStyle()"
             @dragover.prevent
-            @dragenter="isOverCover = true"
-            @dragleave="isOverCover = false"
-            @drop="onDropOnCover"
+            @dragenter.prevent="onCoverDragEnter"
+            @dragleave="onCoverDragLeave"
+            @drop.prevent="onDropOnCover"
           >
             <div class="spread-overlay no-pointer" v-if="cover.type === 'photo'"></div>
+            
+            <!-- Book Spine -->
+            <div class="cover-spine" :style="{ fontFamily: cover.font }">
+              <div class="spine-text">{{ cover.title || 'Your Title Here' }}</div>
+            </div>
+
             <div class="cover-content" :class="{ 'no-pointer': isDragging }" :style="{ fontFamily: cover.font }">
-              <input 
-                type="text" 
+              <textarea 
                 :value="cover.title" 
                 class="cover-title-input" 
                 placeholder="Enter Front Cover Title..."
                 @input="onCoverTitleInput"
-              />
+                rows="2"
+              ></textarea>
               <div class="cover-subtitle">Tizeta-Pages Collection</div>
             </div>
             <div class="drop-hint no-pointer" v-if="!cover.photo && cover.type === 'photo'">
@@ -154,19 +116,42 @@
             :class="{ 'dragging-over': isOverCover }"
             :style="getBackCoverStyle()"
             @dragover.prevent
-            @dragenter="isOverCover = true"
-            @dragleave="isOverCover = false"
-            @drop="onDropOnBackCover"
+            @dragenter.prevent="onCoverDragEnter"
+            @dragleave="onCoverDragLeave"
+            @drop.prevent="onDropOnBackCover($event, 1)"
           >
-            <div class="spread-overlay no-pointer" v-if="backCover.type === 'photo'"></div>
+            <!-- 2 Photo Layout for Back Cover -->
+            <div class="back-cover-slots" v-if="backCover.type === 'photo-2'">
+              <div 
+                class="collage-slot" 
+                @drop.stop.prevent="onDropOnBackCover($event, 1)"
+              >
+                <img v-if="backCover.photo" :src="backCover.photo" />
+                <div v-else class="drop-hint no-pointer">Drop Photo 1</div>
+              </div>
+              <div 
+                class="collage-slot" 
+                @drop.stop.prevent="onDropOnBackCover($event, 2)"
+              >
+                <img v-if="backCover.photo2" :src="backCover.photo2" />
+                <div v-else class="drop-hint no-pointer">Drop Photo 2</div>
+              </div>
+            </div>
+
+            <div class="spread-overlay no-pointer" v-if="backCover.type.startsWith('photo')"></div>
+            
+            <!-- Book Spine -->
+            <div class="cover-spine" :style="{ fontFamily: cover.font }">
+              <div class="spine-text">{{ cover.title || 'Your Title Here' }}</div>
+            </div>
+
             <div class="cover-content" :class="{ 'no-pointer': isDragging }">
-              <input 
-                type="text" 
+              <textarea 
                 v-model="backCover.text" 
                 class="cover-title-input back-title-input" 
-                placeholder="Enter Back Cover Closing Text..."
-              />
-              <div class="cover-subtitle">Printed with ♥ by Tizeta-Pages</div>
+                placeholder="Enter Back Cover Text..."
+                rows="2"
+              ></textarea>
             </div>
             <div class="drop-hint no-pointer" v-if="!backCover.photo && backCover.type === 'photo'">
               Drop photo for Back Cover
@@ -177,7 +162,8 @@
             <div class="control-group">
               <label>Back Cover Type</label>
               <div class="toggle-group">
-                <button :class="{ active: backCover.type === 'photo' }" @click="backCover.type = 'photo'">Photo</button>
+                <button :class="{ active: backCover.type === 'photo' }" @click="backCover.type = 'photo'">1 Photo</button>
+                <button :class="{ active: backCover.type === 'photo-2' }" @click="backCover.type = 'photo-2'">2 Photos</button>
                 <button :class="{ active: backCover.type === 'color' }" @click="backCover.type = 'color'">Color</button>
               </div>
             </div>
@@ -354,6 +340,8 @@
           class="nav-item cover-item" 
           :class="{ active: activeSpreadIndex === -1 }"
           @click="activeSpreadIndex = -1"
+          @dragover.prevent
+          @drop.prevent="onDropOnCover"
         >
           <div class="nav-preview cover-preview" :style="getCoverStyle()"></div>
           <div class="nav-label">Front Cover</div>
@@ -388,6 +376,8 @@
           class="nav-item cover-item" 
           :class="{ active: activeSpreadIndex === -2 }"
           @click="activeSpreadIndex = -2"
+          @dragover.prevent
+          @drop.prevent="onDropOnBackCover"
         >
           <div class="nav-preview cover-preview" :style="getBackCoverStyle()"></div>
           <div class="nav-label">Back Cover</div>
@@ -400,10 +390,10 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 
-const props = defineProps(['photos', 'cover']);
-const emit = defineEmits(['update:photos', 'update:cover', 'next', 'prev']);
+const props = defineProps(['photos', 'cover', 'templateStyle', 'backCover', 'bookLayout']);
+const emit = defineEmits(['update:photos', 'update:cover', 'update:templateStyle', 'update:backCover', 'update:bookLayout', 'next', 'prev']);
 
 const activeSpreadIndex = ref(-1); // -1 Front Cover, -2 Back Cover
 const draggedPhoto = ref(null);
@@ -412,18 +402,15 @@ const isOverCover = ref(false);
 const draggingOverTarget = ref(null);
 const selectedTemplate = ref('mix');
 
-const backCover = ref({
-  type: 'color',
-  color: '#2D3436',
-  photo: null,
-  text: 'Tizeta-Pages • Memory Collection'
-});
+const backCover = ref(props.backCover);
+watch(backCover, (val) => emit('update:backCover', val), { deep: true });
 
 // Initialize Book Layout from props.photos
-const bookLayout = ref([]);
+const bookLayout = ref(props.bookLayout);
+watch(bookLayout, (val) => emit('update:bookLayout', val), { deep: true });
 
 const initLayout = () => {
-  applyTemplateStyle('mix');
+  applyTemplateStyle(props.templateStyle || 'mix');
 };
 
 onMounted(() => {
@@ -469,21 +456,64 @@ const onPhotoDragEnd = () => {
   isDragging.value = false;
   isOverCover.value = false;
   draggingOverTarget.value = null;
+  draggedPhoto.value = null;
 };
 
-const onDropOnCover = () => {
+const onCoverDragEnter = (event) => {
+  if (event) event.preventDefault();
+  isOverCover.value = true;
+};
+
+const onCoverDragLeave = (event) => {
+  if (event && event.currentTarget && !event.currentTarget.contains(event.relatedTarget)) {
+    isOverCover.value = false;
+  }
+};
+
+const onDropOnCover = (event) => {
+  if (event) event.preventDefault();
   if (draggedPhoto.value) {
     emit('update:cover', { ...props.cover, photo: draggedPhoto.value.url, type: 'photo' });
-    onPhotoDragEnd();
+  } else if (event?.dataTransfer?.files?.length > 0) {
+    const file = Array.from(event.dataTransfer.files).find(f => f.type.startsWith('image/'));
+    if (file) {
+      const url = URL.createObjectURL(file);
+      const newPhoto = { file, url };
+      emit('update:photos', [newPhoto, ...props.photos]);
+      emit('update:cover', { ...props.cover, photo: url, type: 'photo' });
+    }
   }
+  onPhotoDragEnd();
 };
 
-const onDropOnBackCover = () => {
+const onDropOnBackCover = (event, slotIndex = 1) => {
+  if (event) event.preventDefault();
+  let urlToUse = null;
+  
   if (draggedPhoto.value) {
-    backCover.value.photo = draggedPhoto.value.url;
-    backCover.value.type = 'photo';
-    onPhotoDragEnd();
+    urlToUse = draggedPhoto.value.url;
+  } else if (event?.dataTransfer?.files?.length > 0) {
+    const file = Array.from(event.dataTransfer.files).find(f => f.type.startsWith('image/'));
+    if (file) {
+      urlToUse = URL.createObjectURL(file);
+      const newPhoto = { file, url: urlToUse };
+      emit('update:photos', [newPhoto, ...props.photos]);
+    }
   }
+  
+  if (urlToUse) {
+    if (backCover.value.type === 'photo-2') {
+      if (slotIndex === 2) {
+        backCover.value.photo2 = urlToUse;
+      } else {
+        backCover.value.photo = urlToUse;
+      }
+    } else {
+      backCover.value.photo = urlToUse;
+      backCover.value.type = 'photo';
+    }
+  }
+  onPhotoDragEnd();
 };
 
 const onDropOnSlot = (spreadIndex, side, slotIndex) => {
@@ -536,6 +566,7 @@ const addSpread = () => {
 
 const applyTemplateStyle = (templateType) => {
   selectedTemplate.value = templateType;
+  emit('update:templateStyle', templateType);
   let photoIdx = 0;
   const spreads = [];
   const totalPhotos = props.photos || [];
@@ -625,8 +656,8 @@ const getCoverStyle = () => {
 };
 
 const getBackCoverStyle = () => {
-  if (backCover.value.type === 'color') {
-    return { backgroundColor: backCover.value.color };
+  if (backCover.value.type === 'color' || backCover.value.type === 'photo-2') {
+    return { backgroundColor: backCover.value.color || '#2D3436' };
   }
   return { 
     backgroundImage: backCover.value.photo ? `url(${backCover.value.photo})` : 'none',
@@ -823,54 +854,6 @@ const getUsageCount = (url) => {
   white-space: nowrap;
 }
 
-.templates-toolbar {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 4px 12px;
-  background: #f4f7f4;
-  border-radius: 50px;
-  border: 1px solid var(--border-color);
-}
-
-.toolbar-title {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 0.78rem;
-  font-weight: 700;
-  color: var(--text-main);
-}
-
-.template-chips {
-  display: flex;
-  gap: 6px;
-}
-
-.template-chip {
-  background: white;
-  border: 1px solid var(--border-color);
-  border-radius: 50px;
-  padding: 4px 10px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: var(--text-muted);
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.template-chip.active, .template-chip:hover {
-  background: var(--primary);
-  color: white;
-  border-color: var(--primary);
-}
-
-.btn-autofill {
-  padding: 6px 14px;
-  font-size: 0.78rem;
-  border-radius: 50px;
-  white-space: nowrap;
-}
 
 .actions {
   display: flex;
@@ -909,6 +892,28 @@ const getUsageCount = (url) => {
   overflow: hidden;
 }
 
+.book-spread::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 50px;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    to right, 
+    rgba(255,255,255,0) 0%, 
+    rgba(0,0,0,0.03) 25%, 
+    rgba(0,0,0,0.12) 48%,
+    rgba(0,0,0,0.15) 50%, 
+    rgba(0,0,0,0.12) 52%,
+    rgba(0,0,0,0.03) 75%, 
+    rgba(255,255,255,0) 100%
+  );
+  pointer-events: none;
+  z-index: 20;
+}
+
 .cover-spread {
   border-radius: 4px 14px 14px 4px;
   display: flex;
@@ -924,15 +929,73 @@ const getUsageCount = (url) => {
   background-color: #2D3436;
 }
 
+.back-cover-slots {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: row;
+  gap: 0;
+}
+
+.back-cover-slots .collage-slot {
+  flex: 1;
+  border-radius: 0;
+  border: none;
+}
+
+.back-cover-slots .collage-slot:first-child {
+  border-right: 2px solid white;
+}
+
 .spread-overlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 60%);
 }
 
+.cover-spine {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 48px;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(2px);
+  border-left: 1px solid rgba(255, 255, 255, 0.15);
+  border-right: 1px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  box-shadow: inset 0 0 15px rgba(0,0,0,0.2);
+}
+
+.spine-text {
+  color: white;
+  white-space: nowrap;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+}
+
 .cover-content {
-  position: relative;
+  position: absolute;
+  bottom: 40px;
+  right: 40px; /* Push it to the right half (Front Cover) */
+  left: calc(50% + 40px); /* Keep it within the right side */
   z-index: 2;
+  text-align: right;
+}
+
+.back-cover-spread .cover-content {
+  left: 40px; /* Push it to the left half (Back Cover) */
+  right: calc(50% + 40px);
+  text-align: left;
 }
 
 .cover-title-input {
@@ -945,6 +1008,11 @@ const getUsageCount = (url) => {
   width: 100%;
   padding: 4px 0;
   text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+  text-align: inherit;
+  resize: none;
+  font-family: inherit;
+  line-height: 1.2;
+  overflow: hidden;
 }
 
 .back-title-input {
@@ -988,11 +1056,11 @@ const getUsageCount = (url) => {
   gap: 6px;
   padding: 8px;
   overflow: hidden;
-  border-right: 1px solid #eee;
 }
 
 .left-page {
-  border-right: 1px solid var(--border-color);
+  /* Spine shadow already handles the division nicely, but we can keep a very subtle line */
+  border-right: 1px solid rgba(0,0,0,0.05);
 }
 
 .page.layout-single {
