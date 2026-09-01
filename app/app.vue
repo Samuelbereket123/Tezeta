@@ -28,7 +28,7 @@
               @click="isCompleted(s.id) ? (currentStep = s.id) : null"
             >
               <div class="step-num">
-                <svg v-if="isCompleted(s.id)" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                <svg v-if="isCompleted(s.id)" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                 <span v-else>{{ index + 1 }}</span>
               </div>
               <div class="step-label">{{ s.label }}</div>
@@ -120,7 +120,6 @@ const showHowItWorks = () => {
 const resetFlow = () => {
   currentStep.value = 'hero';
   photos.value = [];
-  // Reset cover but keep some defaults
   cover.value = {
     title: '',
     type: 'photo',
@@ -188,9 +187,9 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 40px;
-  padding: 30px 0 20px;
-  max-width: 540px;
+  gap: 36px;
+  padding: 32px 0 24px;
+  max-width: 520px;
   margin: 0 auto;
 }
 
@@ -210,9 +209,9 @@ main {
 .step-item:not(:last-child)::after {
   content: '';
   position: absolute;
-  top: 19px;
-  left: calc(50% + 22px);
-  width: calc(100% - 4px);
+  top: 18px;
+  left: calc(50% + 20px);
+  width: calc(100% - 2px);
   height: 2px;
   background: var(--border-color);
   z-index: 1;
@@ -220,33 +219,33 @@ main {
 }
 
 .step-item.completed:not(:last-child)::after {
-  background: var(--primary);
+  background: var(--text-main);
 }
 
 .step-num {
-  width: 40px;
-  height: 40px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   background: white;
-  border: 2px solid var(--border-color);
+  border: 1.5px solid var(--border-color);
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 700;
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   color: var(--text-muted);
   position: relative;
   z-index: 2;
   transition: var(--transition);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  box-shadow: var(--shadow-sm);
 }
 
 .step-item.active .step-num {
-  border-color: var(--primary);
-  color: var(--primary);
-  transform: scale(1.1);
-  box-shadow: 0 0 0 4px rgba(127, 176, 105, 0.25);
-  background: white;
+  border-color: var(--text-main);
+  background: var(--text-main);
+  color: #ffffff;
+  transform: scale(1.08);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
 }
 
 .step-item.completed .step-num {
@@ -260,6 +259,7 @@ main {
   font-weight: 600;
   color: var(--text-muted);
   transition: var(--transition);
+  letter-spacing: -0.01em;
 }
 
 .step-item.active .step-label {
@@ -268,9 +268,11 @@ main {
 }
 
 .main-footer {
-  padding: 60px 0;
-  background: white;
+  padding: 50px 0;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
   border-top: 1px solid var(--border-color);
+  margin-top: 40px;
 }
 
 .footer-content {
@@ -278,7 +280,7 @@ main {
   justify-content: space-between;
   align-items: center;
   color: var(--text-muted);
-  font-size: 0.9rem;
+  font-size: 0.88rem;
 }
 
 .footer-links {
@@ -289,15 +291,16 @@ main {
 .footer-links a {
   color: inherit;
   text-decoration: none;
+  transition: color 0.2s ease;
 }
 
 .footer-links a:hover {
-  color: var(--primary);
+  color: var(--text-main);
 }
 
 @media (max-width: 768px) {
   .stepper-progress {
-    gap: 10px;
+    gap: 12px;
   }
   .step-label {
     display: none;

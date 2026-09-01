@@ -34,15 +34,15 @@
 
 <style scoped>
 .story {
-  padding: 120px 0;
+  padding: 100px 0;
   overflow: hidden;
 }
 
 .story-content {
   display: grid;
-  grid-template-columns: 1fr 1.2fr;
+  grid-template-columns: 1fr 1.15fr;
   align-items: center;
-  gap: 80px;
+  gap: 60px;
 }
 
 .story-image-wrapper {
@@ -53,70 +53,75 @@
   position: relative;
   border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: 20px 20px 60px rgba(0,0,0,0.08);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-subtle);
 }
 
 .story-image img {
   width: 100%;
-  height: 600px;
+  height: 520px;
   object-fit: cover;
-  transition: transform 0.8s ease;
+  transition: transform 0.6s ease;
 }
 
 .story-image:hover img {
-  transform: scale(1.05);
+  transform: scale(1.03);
 }
 
 .image-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.2), transparent);
+  background: linear-gradient(to top, rgba(0,0,0,0.25), transparent 60%);
 }
 
 .experience-badge {
   position: absolute;
-  bottom: -30px;
-  right: -30px;
-  background: var(--primary);
+  bottom: -20px;
+  right: -20px;
+  background: var(--text-main);
   color: white;
-  padding: 30px;
+  padding: 22px 26px;
   border-radius: var(--radius-md);
-  box-shadow: 10px 10px 30px rgba(127, 176, 105, 0.3);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .years {
-  font-size: 2.5rem;
+  font-size: 2.2rem;
   font-weight: 800;
   line-height: 1;
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-display);
+  letter-spacing: -0.03em;
+  color: #ffffff;
 }
 
 .experience-badge .text {
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 500;
-  opacity: 0.9;
-  max-width: 80px;
+  opacity: 0.85;
+  max-width: 90px;
+  margin-top: 4px;
 }
 
 .subtitle {
   color: var(--primary);
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 2px;
-  font-size: 0.9rem;
-  margin-bottom: 16px;
+  letter-spacing: 0.08em;
+  font-size: 0.82rem;
+  margin-bottom: 12px;
   display: block;
 }
 
 h2 {
-  font-size: 3.5rem;
-  line-height: 1.1;
-  margin-bottom: 30px;
-  letter-spacing: -1.5px;
+  font-size: clamp(2.4rem, 4vw, 3.2rem);
+  line-height: 1.12;
+  margin-bottom: 24px;
+  letter-spacing: -0.035em;
 }
 
 .accent {
@@ -124,58 +129,63 @@ h2 {
 }
 
 .lead {
-  font-size: 1.4rem;
+  font-size: 1.25rem;
   color: var(--text-main);
   font-weight: 500;
-  margin-bottom: 24px;
-  line-height: 1.4;
+  margin-bottom: 20px;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
 }
 
 .story-details p {
   color: var(--text-muted);
-  font-size: 1.1rem;
-  margin-bottom: 20px;
+  font-size: 1.02rem;
+  margin-bottom: 16px;
+  line-height: 1.6;
 }
 
 .founder-quote {
-  margin-top: 40px;
-  padding-left: 24px;
-  border-left: 4px solid var(--primary);
-  font-style: italic;
+  margin-top: 32px;
+  padding-left: 20px;
+  border-left: 3px solid var(--primary);
+  font-style: normal;
 }
 
 .founder-quote p {
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   color: var(--text-main);
-  margin-bottom: 12px;
+  margin-bottom: 10px;
+  font-weight: 500;
+  line-height: 1.45;
+  letter-spacing: -0.01em;
 }
 
 .founder-info {
   display: flex;
   flex-direction: column;
-  font-style: normal;
 }
 
 .founder-info strong {
-  font-size: 1rem;
+  font-size: 0.95rem;
   color: var(--text-main);
 }
 
 .founder-info span {
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   color: var(--text-muted);
 }
 
 @media (max-width: 1024px) {
   .story-content {
     grid-template-columns: 1fr;
-    gap: 60px;
+    gap: 50px;
   }
   .story-image img {
-    height: 400px;
+    height: 380px;
   }
-  h2 {
-    font-size: 2.5rem;
+  .experience-badge {
+    bottom: -15px;
+    right: 10px;
   }
 }
 </style>

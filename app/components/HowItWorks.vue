@@ -44,7 +44,7 @@ const steps = [
     title: 'Upload your collection',
     description: 'Select 25+ photos directly from your phone, computer, or cloud storage. Don’t worry about order yet.',
     highlight: 'Instant multi-photo drop & 1-click preset sample',
-    icon: () => h('svg', { xmlns: 'http://www.w3.org/2000/svg', width: 26, height: 26, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': 1.8, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, [
+    icon: () => h('svg', { xmlns: 'http://www.w3.org/2000/svg', width: 24, height: 24, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': 2, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, [
       h('path', { d: 'M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4' }),
       h('polyline', { points: '17 8 12 3 7 8' }),
       h('line', { x1: 12, y1: 3, x2: 12, y2: 15 })
@@ -54,7 +54,7 @@ const steps = [
     title: 'Design your cover',
     description: 'Choose between a full-bleed photo cover or custom color palette with timeless typography styles.',
     highlight: 'Custom titles & curated typography pairings',
-    icon: () => h('svg', { xmlns: 'http://www.w3.org/2000/svg', width: 26, height: 26, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': 1.8, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, [
+    icon: () => h('svg', { xmlns: 'http://www.w3.org/2000/svg', width: 24, height: 24, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': 2, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, [
       h('path', { d: 'M4 19.5V4a2 2 0 0 1 2-2h10.9a2 2 0 0 1 1.2.4l3.9 3.2a2 2 0 0 1 .1 3.3L16 15l-4-4-4 4-2-2z' }),
       h('path', { d: 'M8 22h12a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v15.5a2.5 2.5 0 0 0 5 0V4' })
     ])
@@ -63,7 +63,7 @@ const steps = [
     title: 'Smart automatic layout',
     description: 'Our intelligent layout algorithm places your photos in balanced 2-page spreads. Drag & reorder anytime.',
     highlight: 'Full-bleed spread options & page navigation',
-    icon: () => h('svg', { xmlns: 'http://www.w3.org/2000/svg', width: 26, height: 26, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': 1.8, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, [
+    icon: () => h('svg', { xmlns: 'http://www.w3.org/2000/svg', width: 24, height: 24, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': 2, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, [
       h('rect', { x: 3, y: 3, width: 18, height: 18, rx: 2, ry: 2 }),
       h('line', { x1: 12, y1: 3, x2: 12, y2: 21 })
     ])
@@ -72,7 +72,7 @@ const steps = [
     title: 'Print & doorstep delivery',
     description: 'Printed on 140gsm textured paper with flat lay binding, packed carefully and shipped to your door.',
     highlight: 'Archival paper quality & satisfaction guarantee',
-    icon: () => h('svg', { xmlns: 'http://www.w3.org/2000/svg', width: 26, height: 26, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': 1.8, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, [
+    icon: () => h('svg', { xmlns: 'http://www.w3.org/2000/svg', width: 24, height: 24, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': 2, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, [
       h('path', { d: 'M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z' }),
       h('path', { d: 'M3 6h18' }),
       h('path', { d: 'M16 10a4 4 0 0 1-8 0' })
@@ -83,13 +83,13 @@ const steps = [
 
 <style scoped>
 .how-it-works {
-  padding: 90px 0 110px;
+  padding: 80px 0 100px;
   background: white;
 }
 
 .section-header {
   text-align: center;
-  margin-bottom: 70px;
+  margin-bottom: 60px;
   max-width: 680px;
   margin-left: auto;
   margin-right: auto;
@@ -97,22 +97,23 @@ const steps = [
 
 .badge {
   display: inline-block;
-  padding: 6px 18px;
-  background: rgba(127, 176, 105, 0.12);
+  padding: 6px 16px;
+  background: var(--primary-light);
   color: var(--primary);
-  border-radius: 50px;
+  border-radius: var(--radius-full);
   font-size: 0.85rem;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  margin-bottom: 18px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-bottom: 16px;
 }
 
 h2 {
-  font-size: 3rem;
-  font-weight: 700;
+  font-size: clamp(2.4rem, 4vw, 3.2rem);
+  font-weight: 800;
   margin-bottom: 16px;
-  letter-spacing: -1px;
+  letter-spacing: -0.035em;
   color: var(--text-main);
+  line-height: 1.15;
 }
 
 .accent {
@@ -122,31 +123,31 @@ h2 {
 .section-header p {
   font-size: 1.15rem;
   color: var(--text-muted);
-  line-height: 1.6;
+  line-height: 1.55;
+  letter-spacing: -0.01em;
 }
 
 .steps-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 32px;
-  margin-bottom: 70px;
+  gap: 28px;
+  margin-bottom: 60px;
 }
 
 .work-step {
   padding: 36px;
-  background: #fcfdfb;
+  background: var(--bg-color);
   border-radius: var(--radius-lg);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: var(--transition);
   border: 1px solid var(--border-color);
   display: flex;
   flex-direction: column;
-  position: relative;
 }
 
 .work-step:hover {
-  transform: translateY(-6px);
-  border-color: var(--primary);
-  box-shadow: 0 16px 36px rgba(127, 176, 105, 0.12);
+  transform: translateY(-4px);
+  border-color: rgba(45, 106, 79, 0.3);
+  box-shadow: var(--shadow-md);
   background: white;
 }
 
@@ -154,52 +155,55 @@ h2 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 .step-num {
-  font-family: 'Outfit', sans-serif;
-  font-size: 2.2rem;
+  font-family: var(--font-display);
+  font-size: 2rem;
   font-weight: 800;
-  color: rgba(127, 176, 105, 0.4);
+  color: rgba(45, 106, 79, 0.35);
+  letter-spacing: -0.03em;
 }
 
 .step-icon-box {
-  width: 52px;
-  height: 52px;
+  width: 48px;
+  height: 48px;
   background: white;
-  border-radius: 14px;
+  border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--primary);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.06);
-  border: 1px solid rgba(0,0,0,0.04);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-subtle);
 }
 
 h3 {
-  font-size: 1.4rem;
+  font-size: 1.35rem;
   font-weight: 700;
   margin-bottom: 10px;
   color: var(--text-main);
+  letter-spacing: -0.02em;
 }
 
 .work-step p {
   color: var(--text-muted);
-  line-height: 1.6;
-  font-size: 1rem;
+  line-height: 1.55;
+  font-size: 0.98rem;
   margin-bottom: 20px;
   flex: 1;
 }
 
 .step-highlight {
-  background: rgba(127, 176, 105, 0.08);
+  background: var(--primary-light);
   padding: 8px 14px;
-  border-radius: 8px;
+  border-radius: var(--radius-xs);
   display: inline-block;
   font-size: 0.82rem;
   font-weight: 600;
-  color: var(--primary-hover);
+  color: var(--primary);
+  align-self: flex-start;
 }
 
 .cta-area {
@@ -215,21 +219,22 @@ h3 {
   align-items: center;
   gap: 10px;
   padding: 16px 36px;
-  font-size: 1.1rem;
-  border-radius: 50px;
+  font-size: 1.05rem;
 }
 
 .btn-text {
   background: none;
   border: none;
   color: var(--text-muted);
-  font-weight: 600;
+  font-weight: 500;
   font-size: 0.95rem;
   cursor: pointer;
+  padding: 8px 16px;
+  transition: var(--transition);
 }
 
 .btn-text:hover {
-  color: var(--primary);
+  color: var(--text-main);
 }
 
 @media (max-width: 860px) {
@@ -238,4 +243,3 @@ h3 {
   }
 }
 </style>
-

@@ -1,63 +1,87 @@
 <template>
   <section class="hero">
-    <div class="container hero-content">
-      <div class="hero-text">
-        <span class="badge">
-          <span class="pulse-dot"></span>
-          Simple 3-Step Creation
-        </span>
-        <h1>From digital photos to <span class="accent">beautiful books</span>.</h1>
-        <p>A calm, effortless way to turn your favorite moments into tactile heirloom pages. No design skills required.</p>
-        
-        <!-- Clean Step-by-Step Preview Strip -->
-        <div class="hero-steps-preview">
-          <div class="h-step-pill">
-            <span class="h-step-num">1</span>
-            <span>Upload 25+ Photos</span>
-          </div>
-          <div class="h-step-divider">→</div>
-          <div class="h-step-pill">
-            <span class="h-step-num">2</span>
-            <span>Design Cover & Layout</span>
-          </div>
-          <div class="h-step-divider">→</div>
-          <div class="h-step-pill">
-            <span class="h-step-num">3</span>
-            <span>Order & Print</span>
-          </div>
-        </div>
-
-        <div class="hero-actions">
-          <button class="btn-primary btn-hero-start" @click="$emit('start')">
-            <span>Start Creating Now</span>
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-          </button>
-          <button class="btn-secondary" @click="$emit('start')">
-            ⚡ Quick Demo Flow
-          </button>
-        </div>
+    <div class="container hero-container">
+      <!-- Apple-style subtle badge -->
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        <span class="badge-text">Effortless Memory Preservation</span>
       </div>
 
-      <div class="hero-image">
-        <div class="book-mockup">
-          <div class="book-cover">
-            <div class="book-inner">
-               <div class="book-spine"></div>
-               <div class="book-front">
-                 <img src="https://images.unsplash.com/photo-1544144433-d50aff500b91?q=80&w=2070&auto=format&fit=crop" alt="Book Cover" />
-                 <div class="book-overlay"></div>
-                 <div class="book-title">Summer Memories</div>
-               </div>
-            </div>
+      <!-- Main Headline: 1 Upload 2 Design 3 Get your Book in the middle -->
+      <h1 class="hero-headline">
+        <div class="steps-flow">
+          <div class="step-card">
+            <span class="step-number">1</span>
+            <span class="step-title">Upload</span>
           </div>
-          <div class="floating-photo p1">
-            <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=300&auto=format&fit=crop" alt="Photo 1" />
-            <span class="photo-badge">Spread 01</span>
+
+          <div class="step-separator" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14"></path>
+              <path d="m12 5 7 7-7 7"></path>
+            </svg>
           </div>
-          <div class="floating-photo p2">
-            <img src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=300&auto=format&fit=crop" alt="Photo 2" />
-            <span class="photo-badge">Cover Design</span>
+
+          <div class="step-card">
+            <span class="step-number">2</span>
+            <span class="step-title">Design</span>
           </div>
+
+          <div class="step-separator" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14"></path>
+              <path d="m12 5 7 7-7 7"></path>
+            </svg>
+          </div>
+
+          <div class="step-card step-highlight">
+            <span class="step-number highlight-num">3</span>
+            <span class="step-title highlight-title">Get your Book</span>
+          </div>
+        </div>
+      </h1>
+
+      <!-- Clean Apple-style Subtitle -->
+      <p class="hero-subtitle">
+        Turn your favorite camera roll moments into an heirloom-quality physical book in minutes.
+        No complicated tools—just your stories, beautifully bound.
+      </p>
+
+      <!-- Action Buttons -->
+      <div class="hero-actions">
+        <button class="btn-primary btn-hero-main" @click="$emit('start')">
+          <span>Start creating your book</span>
+          <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14"></path>
+            <path d="m12 5 7 7-7 7"></path>
+          </svg>
+        </button>
+        <button class="btn-secondary btn-hero-sub" @click="$emit('start')">
+          <span>⚡ Try Quick Demo</span>
+        </button>
+      </div>
+
+      <!-- Trust Features Minimalist Bar -->
+      <div class="hero-trust-bar">
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 6L9 17l-5-5"/>
+          </svg>
+          <span>Hardcover & Layflat</span>
+        </div>
+        <span class="trust-dot">•</span>
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 6L9 17l-5-5"/>
+          </svg>
+          <span>Min. 25 Photos</span>
+        </div>
+        <span class="trust-dot">•</span>
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 6L9 17l-5-5"/>
+          </svg>
+          <span>Free Worldwide Shipping</span>
         </div>
       </div>
     </div>
@@ -70,264 +94,278 @@ defineEmits(['start']);
 
 <style scoped>
 .hero {
-  padding: 70px 0 90px;
-  overflow: hidden;
+  padding: 100px 0 120px;
+  position: relative;
+  text-align: center;
 }
 
-.hero-content {
-  display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
+.hero-container {
+  max-width: 980px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 50px;
 }
 
-.badge {
+/* Badge */
+.hero-badge {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 6px 16px;
-  background: rgba(127, 176, 105, 0.12);
-  color: #2E7D32;
-  border-radius: 50px;
-  font-size: 0.85rem;
-  font-weight: 700;
-  margin-bottom: 24px;
-}
-
-.pulse-dot {
-  width: 8px;
-  height: 8px;
-  background: #2E7D32;
-  border-radius: 50%;
-  box-shadow: 0 0 0 0 rgba(46, 125, 50, 0.4);
-  animation: pulse 1.8s infinite;
-}
-
-@keyframes pulse {
-  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(46, 125, 50, 0.7); }
-  70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(46, 125, 50, 0); }
-  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(46, 125, 50, 0); }
-}
-
-h1 {
-  font-size: 3.8rem;
-  line-height: 1.1;
-  margin-bottom: 20px;
-  letter-spacing: -2px;
-  color: var(--text-main);
-}
-
-.accent {
-  color: var(--primary);
-}
-
-p {
-  font-size: 1.2rem;
-  color: var(--text-muted);
-  margin-bottom: 32px;
-  max-width: 520px;
-  line-height: 1.5;
-}
-
-.hero-steps-preview {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: white;
-  padding: 10px 16px;
-  border-radius: 50px;
-  border: 1px solid var(--border-color);
-  width: fit-content;
-  margin-bottom: 36px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-}
-
-.h-step-pill {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.85rem;
+  padding: 8px 18px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  border-radius: var(--radius-full);
+  font-size: 0.88rem;
   font-weight: 600;
   color: var(--text-main);
+  margin-bottom: 32px;
+  box-shadow: var(--shadow-sm);
+  letter-spacing: -0.01em;
 }
 
-.h-step-num {
-  width: 22px;
-  height: 22px;
-  background: rgba(127, 176, 105, 0.2);
-  color: var(--primary-hover);
+.badge-dot {
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  display: flex;
+  background-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.2);
+  animation: pulseDot 2.2s infinite ease-in-out;
+}
+
+@keyframes pulseDot {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  50% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(0.95); opacity: 0.8; }
+}
+
+/* Main Display Headline */
+.hero-headline {
+  margin: 0 0 24px;
+  width: 100%;
+}
+
+.steps-flow {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.75rem;
+  flex-wrap: wrap;
+  gap: 16px 22px;
+  padding: 14px 28px;
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 28px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+}
+
+.step-card {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: clamp(2rem, 4.2vw, 3.2rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: var(--text-main);
+  line-height: 1.1;
+  transition: transform 0.2s ease;
+}
+
+.step-card:hover {
+  transform: translateY(-2px);
+}
+
+.step-number {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--text-main);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: normal;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.step-title {
   font-weight: 800;
 }
 
-.h-step-divider {
-  color: var(--border-color);
-  font-size: 0.85rem;
+.step-separator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #86868b;
+  opacity: 0.6;
+  width: 24px;
+  height: 24px;
+  animation: floatArrow 2.5s ease-in-out infinite;
 }
 
+.step-separator svg {
+  width: 24px;
+  height: 24px;
+}
+
+.step-separator:nth-of-type(2) {
+  animation-delay: 0.4s;
+}
+
+@keyframes floatArrow {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(4px); }
+}
+
+/* Highlight Step 3 */
+.step-highlight .highlight-num {
+  background: var(--primary);
+  color: #ffffff;
+  border-color: var(--primary);
+  box-shadow: 0 4px 14px rgba(45, 106, 79, 0.35);
+}
+
+.step-highlight .highlight-title {
+  background: linear-gradient(135deg, #1b4332 0%, var(--primary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Subtitle */
+.hero-subtitle {
+  font-size: clamp(1.15rem, 2.2vw, 1.35rem);
+  color: var(--text-muted);
+  max-width: 650px;
+  margin: 16px auto 44px;
+  line-height: 1.55;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+}
+
+/* Actions */
 .hero-actions {
   display: flex;
+  align-items: center;
+  justify-content: center;
   gap: 16px;
+  margin-bottom: 56px;
 }
 
-.btn-hero-start {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 14px 32px;
+.btn-hero-main {
+  padding: 16px 36px;
   font-size: 1.05rem;
 }
 
-.hero-image {
-  position: relative;
+.btn-arrow {
+  width: 18px;
+  height: 18px;
+  transition: transform 0.2s ease;
+}
+
+.btn-hero-main:hover .btn-arrow {
+  transform: translateX(4px);
+}
+
+.btn-hero-sub {
+  padding: 16px 32px;
+  font-size: 1.05rem;
+}
+
+/* Trust Bar */
+.hero-trust-bar {
   display: flex;
+  align-items: center;
   justify-content: center;
+  gap: 16px;
+  font-size: 0.88rem;
+  color: var(--text-light);
+  font-weight: 500;
+  letter-spacing: -0.01em;
 }
 
-.book-mockup {
-  position: relative;
-  z-index: 10;
-}
-
-.book-cover {
-  width: 320px;
-  height: 420px;
-  perspective: 1000px;
-}
-
-.book-inner {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  transform: rotateY(-18deg) rotateX(8deg);
-  transform-style: preserve-3d;
-  box-shadow: 25px 25px 60px rgba(0,0,0,0.15);
-  border-radius: 4px 14px 14px 4px;
-  overflow: hidden;
-  transition: transform 0.5s ease;
-}
-
-.book-mockup:hover .book-inner {
-  transform: rotateY(-8deg) rotateX(4deg) scale(1.02);
-}
-
-.book-front {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: white;
-}
-
-.book-front img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.book-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 60%);
-}
-
-.book-title {
-  position: absolute;
-  bottom: 30px;
-  left: 24px;
-  right: 24px;
-  color: white;
-  font-family: 'Outfit', sans-serif;
-  font-weight: 700;
-  font-size: 2.2rem;
-  line-height: 1;
-  text-shadow: 0 2px 10px rgba(0,0,0,0.4);
-}
-
-.book-spine {
-  position: absolute;
-  left: 0;
-  width: 20px;
-  height: 100%;
-  background: #e0e0e0;
-  transform: rotateY(-90deg);
-  transform-origin: left;
-}
-
-.floating-photo {
-  position: absolute;
-  width: 130px;
-  height: 160px;
-  background: white;
-  padding: 6px;
-  box-shadow: 0 14px 35px rgba(0,0,0,0.12);
-  border-radius: 8px;
-  z-index: 5;
-  transition: transform 0.3s ease;
+.trust-item {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  gap: 6px;
 }
 
-.floating-photo img {
-  width: 100%;
-  height: 120px;
-  object-fit: cover;
-  border-radius: 4px;
+.trust-item svg {
+  width: 15px;
+  height: 15px;
+  color: var(--primary);
 }
 
-.photo-badge {
-  font-size: 0.7rem;
-  font-weight: 700;
-  color: var(--text-muted);
-  text-align: center;
-  margin-top: 6px;
+.trust-dot {
+  opacity: 0.4;
 }
 
-.p1 {
-  top: -20px;
-  right: -40px;
-  transform: rotate(12deg);
-}
-
-.p2 {
-  bottom: -10px;
-  left: -60px;
-  transform: rotate(-12deg);
-}
-
-.book-mockup:hover .p1 {
-  transform: rotate(18deg) translateY(-8px);
-}
-
-.book-mockup:hover .p2 {
-  transform: rotate(-18deg) translateY(8px);
-}
-
-@media (max-width: 968px) {
-  .hero-content {
-    grid-template-columns: 1fr;
-    text-align: center;
-    gap: 40px;
+/* Responsive */
+@media (max-width: 860px) {
+  .hero {
+    padding: 70px 0 80px;
   }
-  .hero-text p {
-    margin-left: auto;
-    margin-right: auto;
+  .steps-flow {
+    padding: 16px;
+    gap: 12px 16px;
+    border-radius: 20px;
   }
-  .hero-steps-preview {
-    margin-left: auto;
-    margin-right: auto;
-    flex-wrap: wrap;
+  .step-card {
+    font-size: 1.8rem;
+  }
+  .step-number {
+    width: 36px;
+    height: 36px;
+    font-size: 0.95rem;
+  }
+  .step-separator svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero {
+    padding: 50px 0 60px;
+  }
+  .steps-flow {
+    flex-direction: column;
+    width: 100%;
+    padding: 20px 16px;
+    gap: 14px;
+    border-radius: 18px;
+  }
+  .step-card {
+    font-size: 1.6rem;
+    width: 100%;
     justify-content: center;
+  }
+  .step-separator {
+    transform: rotate(90deg);
+  }
+  @keyframes floatArrow {
+    0%, 100% { transform: rotate(90deg) translateY(0); }
+    50% { transform: rotate(90deg) translateY(3px); }
   }
   .hero-actions {
-    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
   }
-  h1 {
-    font-size: 3rem;
+  .btn-hero-main,
+  .btn-hero-sub {
+    width: 100%;
+  }
+  .hero-trust-bar {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .trust-dot {
+    display: none;
   }
 }
 </style>
-

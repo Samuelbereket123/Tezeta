@@ -1,7 +1,7 @@
 <template>
   <header class="header">
     <div class="container header-content">
-      <div class="logo">
+      <div class="logo" @click="$emit('reset')" style="cursor: pointer;">
         <div class="logo-icon">T</div>
         <span class="logo-text">Tizeta-Pages</span>
       </div>
@@ -16,19 +16,22 @@
 
 <script setup>
 defineProps(['currentStep']);
-defineEmits(['start', 'reset']);
+defineEmits(['start', 'reset', 'show-how']);
 </script>
 
 <style scoped>
 .header {
-  height: 80px;
+  height: 72px;
   display: flex;
   align-items: center;
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(252, 253, 251, 0.8);
-  backdrop-filter: blur(10px);
+  background: rgba(252, 253, 251, 0.82);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  transition: var(--transition);
 }
 
 .header-content {
@@ -41,54 +44,68 @@ defineEmits(['start', 'reset']);
 .logo {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
+  user-select: none;
 }
 
 .logo-icon {
-  width: 36px;
-  height: 36px;
-  background: var(--primary);
+  width: 34px;
+  height: 34px;
+  background: var(--text-main);
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 10px;
-  font-family: 'Outfit', sans-serif;
-  font-weight: 700;
-  font-size: 1.2rem;
+  border-radius: 9px;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.1rem;
+  letter-spacing: -0.02em;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
 }
 
 .logo-text {
-  font-family: 'Outfit', sans-serif;
-  font-weight: 600;
-  font-size: 1.4rem;
-  letter-spacing: -0.5px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.25rem;
+  letter-spacing: -0.03em;
+  color: var(--text-main);
 }
 
 .nav {
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: 28px;
 }
 
 .nav-link {
   text-decoration: none;
   color: var(--text-muted);
   font-weight: 500;
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   transition: var(--transition);
+  letter-spacing: -0.01em;
 }
 
 .nav-link:hover {
-  color: var(--primary);
+  color: var(--text-main);
 }
 
 .btn-primary-sm {
-  background-color: var(--primary);
+  background-color: var(--text-main);
   color: white;
-  padding: 8px 20px;
-  border-radius: var(--radius-md);
-  font-size: 0.9rem;
-  font-weight: 500;
+  padding: 8px 18px;
+  border-radius: var(--radius-full);
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+}
+
+.btn-primary-sm:hover {
+  background-color: #000000;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 </style>
